@@ -21,71 +21,16 @@ source postgressrc1
 	#####################################################################
 
 	# some straightforward parameters for SQL source types
-	sql_host		= localhost
-	sql_user		= postgres
-	sql_pass		= cpjalo224
-	sql_db			= postgres
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
 	sql_port		= 6432	# optional, default is 3306
 
-	# UNIX socket name
-	# optional, default is empty (reuse client library defaults)
-	# usually '/var/lib/mysql/mysql.sock' on Linux
-	# usually '/tmp/mysql.sock' on FreeBSD
-	#
-	# sql_sock		= /tmp/mysql.sock
-
-
-	# MySQL specific client connection flags
-	# optional, default is 0
-	#
-	# mysql_connect_flags	= 32 # enable compression
-
-	# MySQL specific SSL certificate settings
-	# optional, defaults are empty
-	#
-	# mysql_ssl_cert	= /etc/ssl/client-cert.pem
-	# mysql_ssl_key		= /etc/ssl/client-key.pem
-	# mysql_ssl_ca		= /etc/ssl/cacert.pem
-
-	# MS SQL specific Windows authentication mode flag
-	# MUST be in sync with charset_type index-level setting
-	# optional, default is 0
-	#
-	# mssql_winauth		= 1 # use currently logged on user credentials
-
-
-	# MS SQL specific Unicode indexing flag
-	# optional, default is 0 (request SBCS data)
-	#
-	# mssql_unicode		= 1 # request Unicode data from server
-
-
-	# ODBC specific DSN (data source name)
-	# mandatory for odbc source type, no default value
-	#
-	# odbc_dsn		= DBQ=C:\data;DefaultDir=C:\data;Driver={Microsoft Text Driver (*.txt; *.csv)};
-	# sql_query		= SELECT id, data FROM documents.csv
-
-
-	# ODBC and MS SQL specific, per-column buffer sizes
-	# optional, default is auto-detect
-	#
-	# sql_column_buffers	= content=12M, comments=1M
-
-
-	# pre-query, executed before the main fetch query
-	# multi-value, optional, default is empty list of queries
-	#
-	# sql_query_pre		= SET NAMES utf8
-	# sql_query_pre		= SET SESSION query_cache_type=OFF
-
-
-	# main document fetch query
-	# mandatory, integer document ID field MUST be the first selected column
+	
 	sql_query		= \
-		SELECT id, id AS id_attr, area, empresa, descripcion, fecha \
-		FROM bolsa_de_trabajo
-
+		SELECT pk, pk AS pk_attr,nombre, nombre AS nombre_attr, codigo, descripcion, descripcion AS descripcion_attr\
+					FROM asignaturas
 
 	# joined/payload field fetch query
 	# joined fields let you avoid (slow) JOIN and GROUP_CONCAT
@@ -139,7 +84,7 @@ source postgressrc1
 	#
 	# sql_attr_uint		= author_id
 	# sql_attr_uint		= forum_id:9 # 9 bits for forum_id
-	sql_attr_uint		= id_attr
+	sql_attr_uint		= pk_attr
 
 	# boolean attribute declaration
 	# multi-value (an arbitrary number of attributes is allowed), optional
@@ -161,7 +106,7 @@ source postgressrc1
 	#
 	# sql_attr_timestamp	= posted_ts
 	# sql_attr_timestamp	= last_edited_ts
-	sql_attr_timestamp	= fecha
+	# sql_attr_timestamp	= 
 
 	# string ordinal attribute declaration
 	# multi-value (an arbitrary number of attributes is allowed), optional
@@ -245,7 +190,7 @@ source postgressrc1
 	# document info query, ONLY for CLI search (ie. testing and debugging)
 	# optional, default is empty
 	# must contain $id macro and must fetch the document by that id
-	sql_query_info		= SELECT id, area, empresa, descripcion, fecha FROM bolsa_de_trabajo WHERE id=$id
+	sql_query_info		= SELECT * FROM administrador WHERE pk=$id
 
 	# kill-list query, fetches the document IDs for kill-list
 	# k-list will suppress matches from preceding indexes in the same query
@@ -332,6 +277,272 @@ source postgressrc1
 	# xmlpipe_fixup_utf8	= 1
 }
 
+source postgressrc2
+{
+	# data source type. mandatory, no default value
+	# known types are mysql, pgsql, mssql, xmlpipe, xmlpipe2, odbc
+	type			= pgsql
+
+	#####################################################################
+	## SQL settings (for 'mysql' and 'pgsql' types)
+	#####################################################################
+
+	# some straightforward parameters for SQL source types
+	sql_host		= 146.83.181.4
+	sql_user		= grupo02
+	sql_pass		= grupo02
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	
+	sql_query		= \
+		SELECT pk, pk AS pk_attr, departamento,codigo,nombre, nombre AS nombre_attr, descripcion, descripcion AS descripcion_attr \
+                                  FROM asignaturas
+
+	# joined/payload field fetch query
+	# joined fields let you avoid (slow) JOIN and GROUP_CONCAT
+	# payload fields let you attach custom per-keyword values (eg. for ranking)
+	#
+	# syntax is FIELD-NAME 'from'  ( 'query' | 'payload-query' ); QUERY
+	# joined field QUERY should return 2 columns (docid, text)
+	# payload field QUERY should return 3 columns (docid, keyword, weight)
+	#
+	# REQUIRES that query results are in ascending document ID order!
+	# multi-value, optional, default is empty list of queries
+	#
+	# sql_joined_field	= tags from query; SELECT docid, CONCAT('tag',tagid) FROM tags ORDER BY docid ASC
+	# sql_joined_field	= wtags from payload-query; SELECT docid, tag, tagweight FROM tags ORDER BY docid ASC
+
+
+	# file based field declaration
+	#
+	# content of this field is treated as a file name
+	# and the file gets loaded and indexed in place of a field
+	#
+	# max file size is limited by max_file_field_buffer indexer setting
+	# file IO errors are non-fatal and get reported as warnings
+	#
+	# sql_file_field		= content_file_path
+
+
+	# range query setup, query that must return min and max ID values
+	# optional, default is empty
+	#
+	# sql_query will need to reference $start and $end boundaries
+	# if using ranged query:
+	#
+	# sql_query		= \
+	#	SELECT doc.id, doc.id AS group, doc.title, doc.data \
+	#	FROM documents doc \
+	#	WHERE id>=$start AND id<=$end
+	#
+	# sql_query_range		= SELECT MIN(id),MAX(id) FROM documents
+
+
+	# range query step
+	# optional, default is 1024
+	#
+	# sql_range_step		= 1000
+
+
+	# unsigned integer attribute declaration
+	# multi-value (an arbitrary number of attributes is allowed), optional
+	# optional bit size can be specified, default is 32
+	#
+	# sql_attr_uint		= author_id
+	# sql_attr_uint		= forum_id:9 # 9 bits for forum_id
+	sql_attr_uint		= pk_attr
+
+	# boolean attribute declaration
+	# multi-value (an arbitrary number of attributes is allowed), optional
+	# equivalent to sql_attr_uint with 1-bit size
+	#
+	# sql_attr_bool		= is_deleted
+
+
+	# bigint attribute declaration
+	# multi-value (an arbitrary number of attributes is allowed), optional
+	# declares a signed (unlike uint!) 64-bit attribute
+	#
+	# sql_attr_bigint		= my_bigint_id
+
+
+	# UNIX timestamp attribute declaration
+	# multi-value (an arbitrary number of attributes is allowed), optional
+	# similar to integer, but can also be used in date functions
+	#
+	# sql_attr_timestamp	= posted_ts
+	# sql_attr_timestamp	= last_edited_ts
+	# sql_attr_timestamp	= 
+
+	# string ordinal attribute declaration
+	# multi-value (an arbitrary number of attributes is allowed), optional
+	# sorts strings (bytewise), and stores their indexes in the sorted list
+	# sorting by this attr is equivalent to sorting by the original strings
+	#
+	# sql_attr_str2ordinal	= author_name
+
+
+	# floating point attribute declaration
+	# multi-value (an arbitrary number of attributes is allowed), optional
+	# values are stored in single precision, 32-bit IEEE 754 format
+	#
+	# sql_attr_float		= lat_radians
+	# sql_attr_float		= long_radians
+
+
+	# multi-valued attribute (MVA) attribute declaration
+	# multi-value (an arbitrary number of attributes is allowed), optional
+	# MVA values are variable length lists of unsigned 32-bit integers
+	#
+	# syntax is ATTR-TYPE ATTR-NAME 'from' SOURCE-TYPE [;QUERY] [;RANGE-QUERY]
+	# ATTR-TYPE is 'uint' or 'timestamp'
+	# SOURCE-TYPE is 'field', 'query', or 'ranged-query'
+	# QUERY is SQL query used to fetch all ( docid, attrvalue ) pairs
+	# RANGE-QUERY is SQL query used to fetch min and max ID values, similar to 'sql_query_range'
+	#
+	# sql_attr_multi		= uint tag from query; SELECT docid, tagid FROM tags
+	# sql_attr_multi		= uint tag from ranged-query; \
+	#	SELECT docid, tagid FROM tags WHERE id>=$start AND id<=$end; \
+	#	SELECT MIN(docid), MAX(docid) FROM tags
+
+
+	# string attribute declaration
+	# multi-value (an arbitrary number of these is allowed), optional
+	# lets you store and retrieve strings
+	#
+	# sql_attr_string		= stitle
+
+
+	# wordcount attribute declaration
+	# multi-value (an arbitrary number of these is allowed), optional
+	# lets you count the words at indexing time
+	#
+	# sql_attr_str2wordcount	= stitle
+
+
+	# JSON attribute declaration
+	# multi-value (an arbitrary number of these is allowed), optional
+	# lets you store a JSON document as an (in-memory) attribute for later use
+	#
+	# sql_attr_json		= properties
+
+
+	# combined field plus attribute declaration (from a single column)
+	# stores column as an attribute, but also indexes it as a full-text field
+	#
+	# sql_field_string	= author
+	# sql_field_str2wordcount	= title
+
+	
+	# post-query, executed on sql_query completion
+	# optional, default is empty
+	#
+	# sql_query_post		=
+
+	
+	# post-index-query, executed on successful indexing completion
+	# optional, default is empty
+	# $maxid expands to max document ID actually fetched from DB
+	#
+	# sql_query_post_index	= REPLACE INTO counters ( id, val ) \
+	#	VALUES ( 'max_indexed_id', $maxid )
+
+
+	# ranged query throttling, in milliseconds
+	# optional, default is 0 which means no delay
+	# enforces given delay before each query step
+	sql_ranged_throttle	= 0
+
+	# document info query, ONLY for CLI search (ie. testing and debugging)
+	# optional, default is empty
+	# must contain $id macro and must fetch the document by that id
+	sql_query_info		= SELECT * FROM administrador WHERE pk=$id
+
+	# kill-list query, fetches the document IDs for kill-list
+	# k-list will suppress matches from preceding indexes in the same query
+	# optional, default is empty
+	#
+	# sql_query_killlist	= SELECT id FROM documents WHERE edited>=@last_reindex
+
+
+	# columns to unpack on indexer side when indexing
+	# multi-value, optional, default is empty list
+	#
+	# unpack_zlib		= zlib_column
+	# unpack_mysqlcompress	= compressed_column
+	# unpack_mysqlcompress	= compressed_column_2
+
+
+	# maximum unpacked length allowed in MySQL COMPRESS() unpacker
+	# optional, default is 16M
+	#
+	# unpack_mysqlcompress_maxsize	= 16M
+
+
+	# hook command to run when SQL connection succeeds
+	# optional, default value is empty (do nothing)
+	#
+	# hook_connect			= bash sql_connect.sh
+
+
+	# hook command to run after (any) SQL range query
+	# it may print out "minid maxid" (w/o quotes) to override the range
+	# optional, default value is empty (do nothing)
+	#
+	# hook_query_range		= bash sql_query_range.sh
+
+
+	# hook command to run on successful indexing completion
+	# $maxid expands to max document ID actually fetched from DB
+	# optional, default value is empty (do nothing)
+	#
+	# hook_post_index		= bash sql_post_index.sh $maxid
+
+	#####################################################################
+	## xmlpipe2 settings
+	#####################################################################
+
+	# type			= xmlpipe
+
+	# shell command to invoke xmlpipe stream producer
+	# mandatory
+	#
+	# xmlpipe_command		= cat @CONFDIR@/test.xml
+
+	# xmlpipe2 field declaration
+	# multi-value, optional, default is empty
+	#
+	# xmlpipe_field		= subject
+	# xmlpipe_field		= content
+
+
+	# xmlpipe2 attribute declaration
+	# multi-value, optional, default is empty
+	# all xmlpipe_attr_XXX options are fully similar to sql_attr_XXX
+	# examples:
+	#
+	# xmlpipe_attr_timestamp	= published
+	# xmlpipe_attr_uint	= author_id
+	# xmlpipe_attr_str2ordinal= author
+	# xmlpipe_attr_bool	= is_enabled
+	# xmlpipe_attr_float	= latitude
+	# xmlpipe_attr_bigint	= guid
+	# xmlpipe_attr_multi	= tags
+	# xmlpipe_attr_multi_64	= tags64
+	# xmlpipe_attr_string	= title
+	# xmlpipe_attr_wordcount	= title_num_words
+	# xmlpipe_attr_json	= extra_data
+	# xmlpipe_field_string	= content
+	# xmlpipe_field_wordcount	= content_num_words
+
+
+	# perform UTF-8 validation, and filter out incorrect codes
+	# avoids XML parser choking on non-UTF-8 documents
+	# optional, default is 0
+	#
+	# xmlpipe_fixup_utf8	= 1
+}
 
 # inherited source example
 #

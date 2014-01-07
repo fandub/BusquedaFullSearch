@@ -410,3 +410,33 @@ thd 0, proto sphinxapi, state query, command search
 [Mon Jan  6 18:52:18.882 2014] [ 7400] listening on all interfaces, port=9306
 [Mon Jan  6 18:52:18.884 2014] [ 7400] WARNING: index 'postgres1': lock: failed to lock C:/sphinx/data/postgres1.spl: No such file or directory; NOT SERVING
 [Mon Jan  6 18:52:18.885 2014] [ 7400] FATAL: no valid indexes to serve
+[Mon Jan  6 22:00:28.790 2014] [ 4448] listening on all interfaces, port=9312
+[Mon Jan  6 22:00:28.795 2014] [ 4448] listening on all interfaces, port=9306
+[Mon Jan  6 22:00:28.800 2014] [ 4448] WARNING: index 'postgres1': lock: failed to lock C:/sphinx/data/postgres1.spl: No such file or directory; NOT SERVING
+[Mon Jan  6 22:00:28.801 2014] [ 4448] FATAL: no valid indexes to serve
+[Mon Jan  6 22:00:48.295 2014] [ 4620] caught SIGHUP (seamless=1, in queue=1)
+[Mon Jan  6 22:00:48.353 2014] [ 4620] rotating index 'postgres1': started
+[Mon Jan  6 22:00:48.393 2014] [ 4620] WARNING: binlog: failed to unlink ./binlog.002: Permission denied (remove it manually)
+[Mon Jan  6 22:00:48.398 2014] [ 4620] rotating index 'postgres1': success
+[Mon Jan  6 22:00:48.398 2014] [ 4620] rotating index: all indexes done
+------- FATAL: CRASH DUMP -------
+[Mon Jan  6 23:25:08.800 2014] [ 4620]
+
+--- crashed SphinxAPI request dump ---
+AAABGQAAAJkAAAAAAAAAAQAAAAAAAAABAAAABgAAAAAAAAAAAAAAAAAAAARqb3NlAAAAAAAAAAlwb3N0Z3JlczEA
+AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+gAAAALQGdyb3VwIGRlc2MAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAH0AAAAAAAAAAAAAAAAAAAAASo=
+--- request dump end ---
+Sphinx 2.1.4-release (r4421)
+minidump located at:  C:/sphinx/log/searchd.pid.4620.00A2EF45.mdmp
+--- 1 active threads ---
+thd 0, proto sphinxapi, state query, command search
+------- CRASH DUMP END -------
+[Mon Jan  6 23:26:31.175 2014] [ 2260] listening on all interfaces, port=9312
+[Mon Jan  6 23:26:31.177 2014] [ 2260] listening on all interfaces, port=9306
+[Mon Jan  6 23:26:31.184 2014] [ 2260] rotating index 'postgres1': success
+[Mon Jan  6 23:26:31.185 2014] [ 2260] binlog: replaying log ./binlog.001
+[Mon Jan  6 23:26:31.185 2014] [ 2260] binlog: replay stats: 0 rows in 0 commits; 0 updates; 0 indexes
+[Mon Jan  6 23:26:31.185 2014] [ 2260] binlog: finished replaying ./binlog.001; 0.0 MB in 0.000 sec
+[Mon Jan  6 23:26:31.185 2014] [ 2260] binlog: finished replaying total 1 in 0.000 sec
+[Mon Jan  6 23:26:31.186 2014] [ 2260] accepting connections
