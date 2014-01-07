@@ -32,6 +32,13 @@
         echo form_close(); 
 	?>
 </body>     
-
-
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<center>Unidad de Informatica</center>
+<center>UTEM 2014</center>
 </html>
