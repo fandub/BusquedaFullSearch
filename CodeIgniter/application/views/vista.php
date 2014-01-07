@@ -2,10 +2,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Busqueda Full Search</title>
+</head>
+<style type="text/css">
+    #buscador input[type=text]{
+        padding: 10px; 
+        color: #fff;
+        font-weight: bold;
+        border-radius: 40px;
+        width: 520px; 
+        margin-left: 700px;
+    }
+</style>
+
 <body>
     <h1>
-        Busqueda Full Search
+    	<br></br>
+    	<br></br>
+        <center>Busqueda Full Search</center>
     </h1>
+    <div id="buscador">
+    	<span><?php echo validation_errors(); ?></span>
     <?php
         
         echo form_open('controlador/querySphinx',array('id' => 'query'));

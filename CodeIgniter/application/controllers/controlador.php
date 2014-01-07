@@ -15,17 +15,8 @@ class Controlador extends CI_Controller {
         $busqueda = $this->input->post('query', true);
         $query = $this->Modelo_model->querySphinx($busqueda);
         echo var_dump($busqueda);
+        echo var_dump($query);
         
-        
-            foreach($query as $resultado)
-            {
-                if(is_array($resultado))
-        {
-                foreach($resultado as $subresultado)
-                {
-                    echo $subresultado;
-                }
-            }
-        }
-}
+            
+    }
 }

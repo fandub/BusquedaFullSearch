@@ -13,12 +13,32 @@ class Modelo_model extends CI_Model {
      {
         $cl = new SphinxClient();
 		$cl->SetServer( "localhost", 9312 );
+        $cl->SetLimits(0,1);
+        $cl->SetMaxQueryTime(500);
+        $cl->setArrayResult(false);
 		$cl->SetMatchMode( SPH_MATCH_ANY );
         $result = $cl->Query( $query, 'postgres1' );
 
-        // el primer parámetro es la query, es lo que queremos buscar:cumpleaños
-        // el segundo parámetro es el index que vamos a usar para buscarlo
-        return $result;
+        if ( $result === false )
+        {
+            echo "Query failed: " . $cl->GetLastError() . ".\n";
+        }
+        else 
+        {
+            if ( $cl->GetLastWarning() ) 
+            {
+                echo "WARNING: " . $cl->GetLastWarning() . " ";
+            }
+            if ( ! empty($result["matches"]) ) 
+            {
+                foreach ( $result["matches"] as $doc => $docinfo ) 
+                {
+                    echo "$doc\n";
+                }
+                print_r( $result );
+            }
+        }
+        exit;
     }
 }
 ?>
