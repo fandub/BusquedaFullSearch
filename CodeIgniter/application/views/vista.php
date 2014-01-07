@@ -6,11 +6,11 @@
 <style type="text/css">
     #buscador input[type=text]{
         padding: 10px; 
-        color: #fff;
+        color: grey;
         font-weight: bold;
         border-radius: 40px;
         width: 520px; 
-        margin-left: center;
+        text-align: center;
     }
 </style>
 

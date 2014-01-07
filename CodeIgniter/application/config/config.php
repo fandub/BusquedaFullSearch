@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'https://localhost/CodeIgniter';
+$config['base_url']	= 'http://alumnos.informatica.utem.cl/~jperez/sw/';
 
 /*
 |--------------------------------------------------------------------------
