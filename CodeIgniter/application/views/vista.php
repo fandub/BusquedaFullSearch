@@ -10,7 +10,7 @@
         font-weight: bold;
         border-radius: 40px;
         width: 520px; 
-        margin-left: 700px;
+        margin-left: center;
     }
 </style>
 
