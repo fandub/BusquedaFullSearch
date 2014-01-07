@@ -1,0 +1,56 @@
+#
+# Minimal Sphinx configuration sample (clean, simple, functional)
+#
+
+source postgressrc1
+{
+	type			= pgsql
+
+	sql_host		= localhost
+	sql_user		= postgres
+	sql_pass		= cpjalo224
+	sql_db			= postgres
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id, id AS id_attr, area, empresa, empresa AS empresa_attr, descripcion, descripcion AS descripcion_attr, fecha\ 
+				FROM bolsa_de_trabajo
+		
+
+	sql_attr_uint		= id_attr
+	sql_attr_timestamp	= fecha
+	sql_attr_string		= empresa_attr
+	sql_attr_string		= descripcion_attr
+
+	sql_query_info		= SELECT * FROM bolsa_de_trabajo WHERE id=$id
+}
+
+
+index postgres1
+{
+	source			= postgressrc1
+	path			= C:/sphinx/data/postgres1
+	docinfo			= extern
+	charset_type		= sbcs
+}
+
+indexer
+{
+	mem_limit		= 32M
+}
+
+searchd
+{
+	listen			= 127.0.0.1
+	listen			= 9306:mysql41
+	log			= C:/sphinx/log/searchd.log
+	query_log		= C:/sphinx/log/query.log
+	read_timeout		= 5
+	max_children		= 30
+	pid_file		= C:/sphinx/log/searchd.pid
+	max_matches		= 1000
+	seamless_rotate		= 1
+	preopen_indexes		= 0
+	unlink_old		= 1
+	workers			= threads # for RT to work
+	
+}
