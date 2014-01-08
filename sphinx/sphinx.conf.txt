@@ -1,0 +1,1764 @@
+#
+# Minimal Sphinx configuration sample (clean, simple, functional)
+# grupo01
+
+source postgressrc1
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, contacto,contacto AS contacto_attr, nombre, nombre AS nombre_attr, rut, rut AS rut_attr \
+                                  FROM administrador
+	sql_attr_bigint 	= pk_attr
+	sql_attr_string    	= rut_attr
+	sql_attr_string		= nombre_attr
+	sql_attr_string		= contacto_attr
+	
+
+	sql_query_info		= SELECT * FROM administrador WHERE pk=$id
+}
+
+source postgressrc2
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, departamento_fk,codigo, codigo as codigo_attr,nombre, nombre AS nombre_attr, descripcion, descripcion AS descripcion_attr \
+                                  FROM asignaturas
+
+	sql_attr_bigint		= pk_attr
+	sql_attr_string		= nombre_attr
+	sql_attr_string		= descripcion_attr
+	sql_attr_string		= codigo_attr
+
+	sql_query_info		= SELECT * FROM asignaturas WHERE pk=$id
+}
+
+
+source postgressrc3
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,anio,semestre, semestre AS semestre_attr,seccion \
+                                  FROM cursos
+
+	sql_attr_bigint		= pk_attr
+	sql_attr_uint		= semestre_attr
+	
+
+	sql_query_info		= SELECT * FROM cursos WHERE pk=$id
+}
+
+source postgressrc4
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,departamento, departamento AS departamento_attr, descripcion, descripcion AS descripcion_attr \
+                                  FROM departamentos
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= departamento_attr
+	sql_attr_string		= descripcion_attr
+
+	sql_query_info		= SELECT * FROM departamentos WHERE pk=$id
+}
+
+
+source postgressrc5
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,rut,rut AS rut_attr,nombres, nombres AS nombres_attr, apellidos, apellidos AS apellidos_attr \
+                                  FROM docentes
+	sql_attr_bigint		= pk_attr
+	sql_attr_string		= nombres_attr
+	sql_attr_string		= apellidos_attr
+	sql_attr_string		= rut_attr
+	
+	sql_query_info		= SELECT * FROM docentes WHERE pk=$id
+}
+
+source postgressrc6
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,escuela, escuela AS escuela_attr, descripcion, descripcion AS descripcion_attr \
+                                  FROM escuelas
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= escuela_attr
+	sql_attr_string		= descripcion_attr
+
+	sql_query_info		= SELECT * FROM escuelas WHERE pk=$id
+}
+
+source postgressrc7
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, facultad, facultad AS facultad_attr, descripcion, descripcion AS descripcion_attr \
+                                  FROM facultades
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= facultad_attr
+	sql_attr_string		= descripcion_attr
+
+	sql_query_info		= SELECT * FROM facultades WHERE pk=$id
+}
+
+
+source postgressrc8
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, numero,periodo, periodo AS periodo_attr,inicio,termino\
+                                  FROM periodos
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string   	= periodo_attr
+	
+
+	sql_query_info		= SELECT * FROM periodos WHERE pk=$id
+}
+
+
+source postgressrc9
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, extract(epoch FROM fecha) as fecha\
+                                  FROM reservas
+
+	sql_attr_bigint		= pk_attr
+	sql_attr_timestamp	= fecha
+
+	sql_query_info		= SELECT * FROM reservas WHERE pk=$id
+}
+
+
+source postgressrc10
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo01
+	sql_pass		= grupo01
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,sala, sala AS sala_attr \
+                                  FROM salas
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= sala_attr
+	
+
+	sql_query_info		= SELECT * FROM salas WHERE pk=$id
+
+}
+
+# grupo02
+
+
+source postgressrc11
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo02
+	sql_pass		= grupo02
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT cod_clasificacion, cod_clasificacion AS cod_clasificacion_attr, rut,rut AS rut_attr, facultad, departamento, escuela,objetivo,asignatura, asignatura AS asignatura_attr,semestre,fecha,estrategia,carrera \
+                                  FROM planificacion
+	sql_attr_uint 		= cod_clasificacion_attr
+	sql_attr_string    	= rut_attr
+	sql_attr_timestamp	= fecha
+	sql_attr_string		= asignatura_attr
+	
+
+	sql_query_info		= SELECT * FROM planificacion WHERE sod_clasificacion=$id
+}
+
+
+#grupo3
+
+source postgressrc12
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT alumno_id, alumno_id AS alumno_id_attr, apellido, apellido AS apellido_attr, nombre, nombre AS nombre_attr, correo, correo AS correo_attr \
+                                  FROM alumno
+	sql_attr_uint	 	= alumno_id_attr
+	sql_attr_string		= nombre_attr
+	sql_attr_string		= apellido_attr
+	sql_attr_string		= correo_attr
+
+	sql_query_info		= SELECT * FROM alumno WHERE alumno_id=$id
+}
+
+source postgressrc13
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,nombre, nombre AS nombre_attr, descripcion, descripcion AS descripcion_attr \
+                                  FROM cargos
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= nombre_attr
+	sql_attr_string		= descripcion_attr
+
+	sql_query_info		= SELECT * FROM cargos WHERE pk=$id
+}
+
+
+source postgressrc14
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,inicio ,termino \
+                                  FROM cargos_academicos
+
+	sql_attr_bigint		= pk_attr
+	
+
+
+	sql_query_info		= SELECT * FROM cargos_academicos WHERE pk=$id
+}
+
+source postgressrc15
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,nombre, nombre AS nombre_attr, descripcion, descripcion AS descripcion_attr \
+                                  FROM competencias
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= nombre_attr
+	sql_attr_string		= descripcion_attr
+
+	sql_query_info		= SELECT * FROM competencias WHERE pk=$id
+}
+
+
+source postgressrc16
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,comuna, comuna AS comuna_attr \
+                                  FROM comunas
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= comuna_attr
+	
+
+	sql_query_info		= SELECT * FROM comuna WHERE pk=$id
+}
+
+source postgressrc17
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT curso_id, curso_id AS curso_id_attr,curso, curso AS curso_attr\
+                                  FROM cursos
+
+	sql_attr_uint		= curso_id_attr
+	sql_attr_string		= curso_attr
+
+	sql_query_info		= SELECT * FROM cursos WHERE curso_id=$id
+}
+
+source postgressrc18
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, departamento, departamento AS departamento_attr, descripcion, descripcion AS descripcion_attr \
+                                  FROM departamentos
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= departamento_attr
+	sql_attr_string		= descripcion_attr
+
+	sql_query_info		= SELECT * FROM departamentos WHERE pk=$id
+}
+
+
+source postgressrc19
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,nombres, nombres AS nombres_attr,apellidos,apellidos AS apellidos_attr,rut,fecha_nacimiento,genero,direccion,telefono,celular,email,jerarquia,contrato,jornada,grado,funcion,eliminado\
+                                  FROM docentes
+
+	sql_attr_bigint		= pk_attr
+	sql_attr_string  	= nombres_attr
+        sql_attr_string         = apellidos_attr
+	
+
+	sql_query_info		= SELECT * FROM docentes WHERE pk=$id
+}
+
+
+source postgressrc20
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, escuela,escuela AS escuela_attr,descripcion,descripcion AS descripcion_attr\
+                                  FROM escuelas
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string 	= escuela_attr
+        sql_attr_string 	= descripcion_attr
+
+	sql_query_info		= SELECT * FROM escuelas WHERE pk=$id
+}
+
+
+source postgressrc21
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,facultad, facultad AS facultad_attr,descripcion,descripcion AS descripcion_attr \
+                                  FROM facultades
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= facultad_attr
+        sql_attr_string		= descripcion_attr
+	
+
+	sql_query_info		= SELECT * FROM facultades WHERE pk=$id
+
+}
+
+source postgressrc22
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, titulo,titulo AS titulo_attr,inicio, termino \
+                                  FROM formacion
+	sql_attr_uint 		= pk_attr
+	sql_attr_string		= titulo_attr
+
+	sql_query_info		= SELECT * FROM formacion WHERE pk=$id
+}
+
+source postgressrc23
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, grado, grado AS grado_attr,titulo,descripcion, descripcion AS descripcion_attr \
+                                  FROM grados_academicos
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= grado_attr
+	sql_attr_string		= descripcion_attr
+     
+
+	sql_query_info		= SELECT * FROM grados_academicos WHERE pk=$id
+}
+
+
+source postgressrc24
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,nombre, nombre AS nombre_attr \
+                                  FROM instituciones
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= nombre_attr
+	
+
+	sql_query_info		= SELECT * FROM instituciones WHERE pk=$id
+}
+
+source postgressrc25
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_lineasdedesarrollodocente, id_lineasdedesarrollodocente AS id_lineasdedesarrollodocente_attr,nombre, nombre AS nombre_attr \
+                                  FROM lineasdedesarrollodocente
+	sql_attr_uint		= id_lineasdedesarrollodocente_attr
+	sql_attr_string		= nombre_attr
+	
+	sql_query_info		= SELECT * FROM lineasdedesarrollodocentes WHERE id_lineasdedesarrollodocentes=$id
+}
+
+
+source postgressrc26
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,cod_num,cod_num AS cod_num_attr,nombre, nombre AS nombre_attr, nacionalidad, nacionalidad AS nacionalidad_attr,alfa_dos,alfa_tres\
+                                  FROM paises
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= cod_num_attr
+	sql_attr_string		= nombre_attr
+        sql_attr_string		= nacionalidad_attr
+
+
+	sql_query_info		= SELECT * FROM paises WHERE pk=$id
+}
+
+source postgressrc27
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_participacion, id_participacion AS id_participacion_attr,nombre, nombre AS nombre_attr, institucion,  institucion AS  institucion_attr, cargo, cargo AS cargo_attr,id_academico \
+                                  FROM participacion
+
+	sql_attr_uint		= id_participacion_attr
+	sql_attr_string		= nombre_attr
+	sql_attr_string		= institucion_attr
+        sql_attr_string		= cargo_attr
+
+
+	sql_query_info		= SELECT * FROM participacion WHERE id_participacion=$id
+}
+
+source postgressrc28
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, provincia, provincia AS provincia_attr\
+                                  FROM provincias
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= provincia_attr
+	
+
+	sql_query_info		= SELECT * FROM provincias WHERE pk=$id
+}
+
+
+source postgressrc29
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, region,region AS region_attr,corfo, corfo AS corfo_attr,codigo,numero\
+                                  FROM regiones
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string   	= corfo_attr
+	sql_attr_string   	= region_attr
+	
+
+	sql_query_info		= SELECT * FROM regiones WHERE pk=$id
+}
+
+
+source postgressrc30
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr, tipo,tipo As tipo_attr,descripcion,descripcion AS descripcion_attr\
+                                  FROM tipos_instituciones
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string    	= tipo_attr
+        sql_attr_string    	= descripcion_attr
+
+
+	sql_query_info		= SELECT * FROM tipos_instituciones WHERE pk=$id
+}
+
+
+source postgressrc31
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo03
+	sql_pass		= grupo03
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_trabajoactual, id_trabajoactual AS id_trabajoactual_attr,cargo, cargo AS cargo_attr, direccion, direccion AS direccion_attr,ciudad, ciudad AS ciudad_attr,region\
+                                  FROM trabajoactual
+
+	sql_attr_uint		= id_trabajoactual_attr
+	sql_attr_string		= cargo_attr
+        sql_attr_string		= direccion_attr
+        sql_attr_string		= ciudad_attr
+
+	
+
+	sql_query_info		= SELECT * FROM trabajoactual WHERE id_trabajoactual=$id
+
+}
+
+#Grupo05
+
+source postgressrc32
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo05
+	sql_pass		= grupo05
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,nombres, nombres AS nombres_attr,apellido, apellido AS apellido_attr,rut, rut AS rut_attr,login, login AS login_attr \
+                                  FROM administrador
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= nombres_attr
+        sql_attr_string		= apellido_attr
+        sql_attr_string		= rut_attr
+        sql_attr_string		= login_attr
+	
+
+	sql_query_info		= SELECT * FROM administrador WHERE pk=$id
+
+}
+
+source postgressrc33
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo05
+	sql_pass		= grupo05
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,titulo, titulo AS titulo_attr,bajada, bajada AS bajada_attr, noticia, noticia AS noticia_attr,fecha,fecha AS fecha_attr, imagen \
+                                  FROM articulos
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= titulo_attr
+        sql_attr_string		= bajada_attr
+	sql_attr_timestamp	= fecha_attr
+        sql_attr_string		= noticia_attr
+
+
+	sql_query_info		= SELECT * FROM articulos WHERE pk=$id
+
+}
+
+source postgressrc34
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo05
+	sql_pass		= grupo05
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT pk, pk AS pk_attr,nombre, nombre AS nombre_attr,descripcion, descripcion AS descripcion_attr \
+                                  FROM categorias
+
+	sql_attr_uint		= pk_attr
+	sql_attr_string		= nombre_attr
+        sql_attr_string		= descripcion_attr
+	
+
+	sql_query_info		= SELECT * FROM categorias WHERE pk=$id
+
+}
+
+
+#grupo06
+
+source postgressrc35
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo06
+	sql_pass		= grupo06
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_academico, id_academico AS id_academico_attr,nombre_academico, nombre_academico AS nombre_academico_attr,apellidos_academico, apellidos_academico AS apellidos_academico_attr, rut_academico , rut_academico AS rut_academico_attr \
+                                  FROM academico
+
+	sql_attr_uint		= id_academico_attr
+	sql_attr_string		= nombre_academico_attr
+        sql_attr_string		= apellidos_academico_attr
+        sql_attr_uint		= rut_academico_attr
+	
+
+	sql_query_info		= SELECT * FROM academico WHERE id_academico=$id
+
+}
+
+
+source postgressrc36
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo06
+	sql_pass		= grupo06
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_asignatura, id_asignatura AS id_asignatura_attr,codigo_asignatura, codigo_asignatura AS codigo_asignatura_attr,seccion_asignatura,nombre_asignatura, nombre_asignatura AS nombre_asignatura_attr , academico_asignatura, academico_asignatura AS academico_asignatura_attr \
+                                  FROM asignatura
+
+	sql_attr_uint		= id_asignatura_attr
+	sql_attr_string		= codigo_asignatura_attr
+        sql_attr_string		= nombre_asignatura_attr
+        sql_attr_uint		= academico_asignatura_attr
+	
+
+	sql_query_info		= SELECT * FROM asignatura WHERE id_asignatura=$id
+
+}
+
+source postgressrc37
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo06
+	sql_pass		= grupo06
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_contenido, id_contenido AS id_contenido_attr,nombre_contenido, nombre_contenido AS nombre_contenido_attr,asignatura_contenido, asignatura_contenido AS asignatura_contenido_attr \
+                                  FROM contenido
+
+	sql_attr_uint		= id_contenido_attr
+	sql_attr_string		= nombre_contenido_attr
+        sql_attr_string		= asignatura_contenido_attr
+	
+
+	sql_query_info		= SELECT * FROM contenido WHERE id_contenido=$id
+
+}
+
+source postgressrc38
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo06
+	sql_pass		= grupo06
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_documento, id_documento AS id_documento_attr,nombre_documento, nombre_documento AS nombre_documento_attr, archivo_documento,contenido_documento, contenido_documento AS contenido_documento_attr\
+                                  FROM documento
+
+	sql_attr_uint		= id_documento_attr
+	sql_attr_string		= nombre_documento_attr
+        sql_attr_uint		= contenido_documento_attr
+	
+
+	sql_query_info		= SELECT * FROM documento WHERE id_documento=$id
+
+}
+
+source postgressrc39
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo06
+	sql_pass		= grupo06
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_evaluacion, id_evaluacion AS id_evaluacion_attr,nombre_evaluacion, nombre_evaluacion AS nombre_evaluacion_attr,fecha_evaluacion, hora_evaluacion , ponderacion_evaluacion, observacion_evaluacion,observacion_evaluacion AS observacion_evaluacion_attr,tipo_evaluacion, asignatura_evaluacion, asignatura_evaluacion AS asignatura_evaluacion_attr,academico_evaluacion, academico_evaluacion AS academico_evaluacion_attr\
+                                  FROM evaluacion
+
+	sql_attr_uint		= id_evaluacion_attr
+	sql_attr_string		= nombre_evaluacion_attr
+        
+        sql_attr_string		= observacion_evaluacion_attr
+        sql_attr_uint		= asignatura_evaluacion_attr
+        sql_attr_uint		= academico_evaluacion_attr
+	
+
+	sql_query_info		= SELECT * FROM evaluacion WHERE id_evaluacion=$id
+
+}
+
+source postgressrc40
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo06
+	sql_pass		= grupo06
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_pauta, id_pauta AS id_pauta_attr,nombre_pauta, nombre_pauta AS nombre_pauta_attr,archivo_pauta, asignatura_pauta, asignatura_pauta  AS asignatura_pauta_attr \
+                                  FROM pauta
+
+	sql_attr_uint		= id_pauta_attr
+	sql_attr_string		= nombre_pauta_attr
+        sql_attr_uint		= asignatura_pauta_attr
+	
+
+	sql_query_info		= SELECT * FROM pauta WHERE id_pauta=$id
+
+}
+
+
+source postgressrc41
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo06
+	sql_pass		= grupo06
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_tipo, id_tipo AS id_tipo_attr,nombre_tipo, nombre_tipo AS nombre_tipo_attr \
+                                  FROM tipo_evaluacion
+
+	sql_attr_uint		= id_tipo_attr
+	sql_attr_string		= nombre_tipo_attr
+        
+	
+
+	sql_query_info		= SELECT * FROM tipo_evaluacion WHERE id_tipo=$id
+
+}
+
+source postgressrc42
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo06
+	sql_pass		= grupo06
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id_usuario, id_usuario AS id_usuario_attr,rut, rut AS rut_attr,nivel_usuario, academico_usuario, academico_usuario AS academico_usuario_attr \
+                                  FROM usuario
+
+	sql_attr_uint		= id_usuario_attr
+	sql_attr_uint		= rut_attr
+        sql_attr_uint		= academico_usuario_attr
+	
+
+	sql_query_info		= SELECT * FROM usuario WHERE id_usuario=$id
+
+}
+
+
+#grupo08
+
+
+
+source postgressrc43
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT codigo, codigo AS codigo_attr, nombre_carrera, nombre_carrera AS nombre_carrera_attr, id_facultad, id_facultad AS id_facultad_attr\
+                                  FROM carrera
+
+	sql_attr_uint		= codigo_attr
+	sql_attr_uint		= id_facultad_attr
+        sql_attr_string		= nombre_carrera_attr
+	
+
+	sql_query_info		= SELECT * FROM carrera WHERE codigo=$id
+
+}
+
+source postgressrc44
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id, id AS id_attr,id_facultad, id_facultad AS id_facultad_attr, nombre_categoria, nombre_categoria AS nombre_categoria_attr \
+                                  FROM categoria
+
+	sql_attr_uint		= id_attr
+	sql_attr_string		= nombre_categoria_attr
+        sql_attr_uint		= id_facultad_attr
+	
+
+	sql_query_info		= SELECT * FROM categoria WHERE id=$id
+
+}
+
+source postgressrc45
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT rut, rut AS rut_attr,anio_ingreso, codigo_carrera, codigo_carrera AS codigo_carrera_attr,user_id \
+                                  FROM estudiante
+
+	sql_attr_uint		= rut_attr
+	sql_attr_uint		= codigo_carrera_attr
+       
+	
+
+	sql_query_info		= SELECT * FROM estudiante WHERE rut=$id
+
+}
+
+source postgressrc46
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id, id AS id_attr, nombre_facultad, nombre_facultad AS nombre_facultad_attr \
+                                  FROM facultad
+
+	sql_attr_uint		= id_attr
+	sql_attr_string		= nombre_facultad_attr
+        
+	
+
+	sql_query_info		= SELECT * FROM facultad WHERE id=$id
+
+}
+
+source postgressrc47
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+        sql_port		= 6432	# optional, default is 3306
+        sql_db			= iswdb
+
+	sql_query		= SELECT id, id AS id_attr,name, name AS name_attr, description AS description_attr \
+                                  FROM groups
+
+	sql_attr_uint		= id_attr
+	sql_attr_string		= name_attr
+        sql_attr_string		= description_attr
+	
+
+	sql_query_info		= SELECT * FROM usuario WHERE id=$id
+
+}
+
+source postgressrc48
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id, id AS id_attr,ip_address, ip_address AS ip_adress_attr,login, login AS login_attr, time_t \
+                                  FROM login_attempts
+
+	sql_attr_uint		= id_attr
+        sql_attr_string		= login_attr
+        sql_attr_uint      	= time_t
+	
+
+	sql_query_info		= SELECT * FROM login_attempts WHERE id=$id
+
+}
+
+source postgressrc49
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT rut, rut AS rut_attr, user_id, user_id AS user_id_attr \
+                                  FROM profesor
+
+	sql_attr_uint		= rut_attr
+	sql_attr_uint		= user_id_attr
+	
+
+	sql_query_info		= SELECT * FROM profesor WHERE rut=$id
+
+}
+
+source postgressrc50
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id, id AS id_attr,titulo, titulo AS titulo_attr,abstract, fecha_evaluacion, fecha_publicacion, ubicacion_fichero,feha_disponibilidad , estudiante_rut , estudiante_rut AS estudiante_rut_attr, profesor_guia_rut, profesor_guia_rut AS profesor_guia_rut_attr\
+                                  FROM tesis
+
+	sql_attr_uint		= id_attr
+	sql_attr_string		= titulo_attr
+        sql_attr_uint		= profesor_guia_rut_attr
+        sql_attr_uint		= estudiante_rut_attr
+        sql_attr_timestamp	= fecha_evaluacion
+        
+        
+	
+
+	sql_query_info		= SELECT * FROM tesis WHERE id=$id
+
+}
+
+source postgressrc51
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id, id AS id_attr,ip_address, ip_address AS ip_address_attr,username, username AS username_attr, email, email AS email_attr, activation_code,first_name, last_name, company, phone\
+                                  FROM users
+
+	sql_attr_uint		= id_attr
+	
+        sql_attr_string		= username_attr
+        sql_attr_string		= email_attr
+
+
+	
+
+	sql_query_info		= SELECT * FROM users WHERE id=$id
+
+}
+
+source postgressrc52
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo08
+	sql_pass		= grupo08
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT id, id AS id_attr,user_id, user_id AS user_id_attr,group_id, group_id AS group_id_attr\
+                                  FROM users_groups
+
+	sql_attr_uint		= id_attr
+	sql_attr_uint		= user_id_attr
+        sql_attr_uint		= group_id_attr
+        
+
+
+	
+
+	sql_query_info		= SELECT * FROM users_groups WHERE id=$id
+
+}
+
+#grupo09
+
+
+source postgressrc53
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo09
+	sql_pass		= grupo09
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT "Id_Administrador", "Id_Administrador" AS Id_Administrador_attr, "Usuario", "Nombre1", "Nombre1" AS Nombre1_attr,"Nombre2", "Nombre2" AS Nombre2_attr , "Apellido1", "Apellido1" AS Apellido1_attr , "Apellido2", "Apellido2" AS Apellido2_attr,"Cargo", "Cargo" AS cargo_attr, "Telefono1", "Telefono2", "Correo", "Correo" AS Correo_attr, "Sexo", "Direccion", "Direccion" As Direccion_attr, "Rut", "Rut" AS Rut_attr\
+                                  FROM "Administrador"
+
+	sql_attr_uint		= Id_Administrador_attr
+	sql_attr_string		= Nombre1_attr
+        sql_attr_string		= Nombre2_attr
+        sql_attr_string		= Apellido1_attr
+        sql_attr_string		= Apellido2_attr
+        sql_attr_string		= Cargo_attr
+        sql_attr_string		= Correo_attr
+        sql_attr_string		= Direccion_attr
+        sql_attr_string		= Rut_attr
+
+
+	
+
+	sql_query_info		= SELECT * FROM "Administrador" WHERE "Id_Administrador"=$id
+
+}
+
+
+source postgressrc54
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo09
+	sql_pass		= grupo09
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT "Id_Alumno", "Id_Alumno" AS Id_Alumno_attr,"Nombre1", "Nombre1" AS Nombre1_attr,"Nombre2", "Nombre2" AS Nombre2_attr , "Apellido1", "Apellido1" AS Apellido1_attr , "Apellido2", "Apellido2" AS Apellido2_attr, "Telefono1", "Telefono2",  "Correo", "Correo" AS Correo_attr, "Sexo","Usuario", "Comuna","Fecha_Nacimiento","Direccion","Direccion" As Direccion_attr,"Rut", "Rut" As Rut_attr \
+                                  FROM "Alumno"
+
+	sql_attr_uint		= Id_Alumno_attr
+	sql_attr_string		= Nombre1_attr
+        sql_attr_string		= Nombre2_attr
+        sql_attr_string		= Apellido1_attr
+        sql_attr_string		= Apellido2_attr
+        sql_attr_string		= Correo_attr
+        sql_attr_string		= Direccion_attr
+        sql_attr_string 	= Rut_attr
+
+
+
+
+	
+
+	sql_query_info		= SELECT * FROM "Alumno" WHERE "Id_Alumno"=$id
+
+}
+
+source postgressrc55
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo09
+	sql_pass		= grupo09
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT "Id_Empleador", "Id_Empleador" AS Id_Empleador_attr,"Empresa", "Empresa" AS Empresa_attr,"Correo", "Correo" AS Correo_attr, "Verificacion", "Telefono1", "Telefono2", "Fecha_Solicitud", "Nombre1", "Nombre1" AS Nombre1_attr,"Nombre2", "Nombre2" AS Nombre2_attr, "Apellido1", "Apellido1" AS Apellido1_attr , "Apellido2", "Apellido2" AS Apellido2_attr \
+                                  FROM "Empleador"
+
+	sql_attr_uint		= Id_Empleador_attr
+	sql_attr_string		= Empresa_attr
+        sql_attr_string		= Correo_attr
+        
+        sql_attr_string		= Nombre1_attr
+        sql_attr_string		= Nombre2_attr
+        sql_attr_string		= Apellido1_attr
+        sql_attr_string		= Apellido2_attr
+
+
+	
+
+	sql_query_info		= SELECT * FROM "Empleador" WHERE "Id_Empleador"=$id
+
+}
+
+source postgressrc56
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo09
+	sql_pass		= grupo09
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT "Id_Foro", "Id_Foro" AS Id_Foro_attr,"Titulo", "Titulo" AS Titulo_attr,"Mensaje", "Mensaje" AS Mensaje_attr,"Usuario", "Permiso_Usuario", "Fecha_Posteo"\
+                                  FROM "Foro"
+
+	sql_attr_uint		= Id_Foro_attr
+	sql_attr_string		= Titulo_attr
+        sql_attr_string		= Mensaje_attr
+        
+        
+
+
+	
+
+	sql_query_info		= SELECT * FROM Foro WHERE "Id_Foro"=$id
+
+}
+
+source postgressrc57
+{
+	type			= pgsql
+
+	sql_host		= 146.83.181.4
+	sql_user		= grupo09
+	sql_pass		= grupo09
+	sql_db			= iswdb
+	sql_port		= 6432	# optional, default is 3306
+
+	sql_query		= SELECT "Id_Trabajo", "Id_Trabajo" AS Id_Trabajo_attr,"Descripcion", "Descripcion" AS Descripcion_attr,"Codigo_Carrera", "Codigo_Carrera" AS Codigo_Carrera_attr, "Vigencia", "Id_Administrador", "Id_Empleador", "Usuario", "Fecha_Posteo"\
+                                  FROM "Trabajo"
+
+	sql_attr_uint		= Id_Trabajo_attr
+	sql_attr_string		= Descripcion_attr
+        sql_attr_uint		= Codigo_Carrera_attr
+	
+
+	sql_query_info		= SELECT * FROM "Trabajo" WHERE "Id_Trabajo"=$id
+
+}
+
+
+index postgres1
+{
+	source			= postgressrc1
+	path			= /var/lib/sphinxsearch/data/postgres1
+	docinfo			= extern
+	charset_type		= sbcs
+}
+
+index postgres2 {
+    source     = postgressrc2
+    path       = /var/lib/sphinxsearch/data/postgres2
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres3 {
+    source     = postgressrc3
+    path       = /var/lib/sphinxsearch/data/postgres3
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres4 {
+    source     = postgressrc4
+    path       = /var/lib/sphinxsearch/data/postgres4
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres5 {
+    source     = postgressrc5
+    path       = /var/lib/sphinxsearch/data/postgres5
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres6 {
+    source     = postgressrc6
+    path       = /var/lib/sphinxsearch/data/postgres6
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres7 {
+    source     = postgressrc7
+    path       = /var/lib/sphinxsearch/data/postgres7
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres8 {
+    source     = postgressrc8
+    path       = /var/lib/sphinxsearch/data/postgres8
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres9 {
+    source     = postgressrc9
+    path       = /var/lib/sphinxsearch/data/postgres9
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres10 {
+    source     = postgressrc10
+    path       = /var/lib/sphinxsearch/data/postgres10
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres11 {
+    source     = postgressrc11
+    path       = /var/lib/sphinxsearch/data/postgres11
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres12 {
+    source     = postgressrc12
+    path       = /var/lib/sphinxsearch/data/postgres12
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres13 {
+    source     = postgressrc13
+    path       = /var/lib/sphinxsearch/data/postgres13
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres14 {
+    source     = postgressrc14
+    path       = /var/lib/sphinxsearch/data/postgres14
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres15 {
+    source     = postgressrc15
+    path       = /var/lib/sphinxsearch/data/postgres15
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres16 {
+    source     = postgressrc16
+    path       = /var/lib/sphinxsearch/data/postgres16
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres17 {
+    source     = postgressrc17
+    path       = /var/lib/sphinxsearch/data/postgres17
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres18 {
+    source     = postgressrc18
+    path       = /var/lib/sphinxsearch/data/postgres18
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres19 {
+    source     = postgressrc19
+    path       = /var/lib/sphinxsearch/data/postgres19
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres20 {
+    source     = postgressrc20
+    path       = /var/lib/sphinxsearch/data/postgres20
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres21 {
+    source     = postgressrc21
+    path       = /var/lib/sphinxsearch/data/postgres21
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres22 {
+    source     = postgressrc22
+    path       = /var/lib/sphinxsearch/data/postgres22
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres23 {
+    source     = postgressrc23
+    path       = /var/lib/sphinxsearch/data/postgres23
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres24 {
+    source     = postgressrc24
+    path       = /var/lib/sphinxsearch/data/postgres24
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres25 {
+    source     = postgressrc25
+    path       = /var/lib/sphinxsearch/data/postgres25
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres26 {
+    source     = postgressrc26
+    path       = /var/lib/sphinxsearch/data/postgres26
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres27 {
+    source     = postgressrc27
+    path       = /var/lib/sphinxsearch/data/postgres27
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres28 {
+    source     = postgressrc28
+    path       = /var/lib/sphinxsearch/data/postgres28
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres29 {
+    source     = postgressrc29
+    path       = /var/lib/sphinxsearch/data/postgres29
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres30 {
+    source     = postgressrc30
+    path       = /var/lib/sphinxsearch/data/postgres30
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres31 {
+    source     = postgressrc31
+    path       = /var/lib/sphinxsearch/data/postgres31
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres32 {
+    source     = postgressrc32
+    path       = /var/lib/sphinxsearch/data/postgres32
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres33 {
+    source     = postgressrc33
+    path       = /var/lib/sphinxsearch/data/postgres33
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres34 {
+    source     = postgressrc34
+    path       = /var/lib/sphinxsearch/data/postgres34
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres35 {
+    source     = postgressrc35
+    path       = /var/lib/sphinxsearch/data/postgres35
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres36 {
+    source     = postgressrc36
+    path       = /var/lib/sphinxsearch/data/postgres36
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres37 {
+    source     = postgressrc37
+    path       = /var/lib/sphinxsearch/data/postgres37
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres38 {
+    source     = postgressrc38
+    path       = /var/lib/sphinxsearch/data/postgres38
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres39 {
+    source     = postgressrc39
+    path       = /var/lib/sphinxsearch/data/postgres39
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres40 {
+    source     = postgressrc40
+    path       = /var/lib/sphinxsearch/data/postgres40
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres41 {
+    source     = postgressrc41
+    path       = /var/lib/sphinxsearch/data/postgres41
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres42 {
+    source     = postgressrc42
+    path       = /var/lib/sphinxsearch/data/postgres42
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres43 {
+    source     = postgressrc43
+    path       = /var/lib/sphinxsearch/data/postgres43
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres44 {
+    source     = postgressrc44
+    path       = /var/lib/sphinxsearch/data/postgres44
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres45 {
+    source     = postgressrc45
+    path       = /var/lib/sphinxsearch/data/postgres45
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres46 {
+    source     = postgressrc46
+    path       = /var/lib/sphinxsearch/data/postgres46
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres47 {
+    source     = postgressrc47
+    path       = /var/lib/sphinxsearch/data/postgres47
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres48 {
+    source     = postgressrc48
+    path       = /var/lib/sphinxsearch/data/postgres48
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres49 {
+    source     = postgressrc49
+    path       = /var/lib/sphinxsearch/data/postgres49
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres50 {
+    source     = postgressrc50
+    path       = /var/lib/sphinxsearch/data/postgres50
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres51 {
+    source     = postgressrc51
+    path       = /var/lib/sphinxsearch/data/postgres51
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres52 {
+    source     = postgressrc52
+    path       = /var/lib/sphinxsearch/data/postgres52
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres53 {
+    source     = postgressrc53
+    path       = /var/lib/sphinxsearch/data/postgres53
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres54 {
+    source     = postgressrc54
+    path       = /var/lib/sphinxsearch/data/postgres54
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres55 {
+    source     = postgressrc55
+    path       = /var/lib/sphinxsearch/data/postgres55
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres56 {
+    source     = postgressrc56
+    path       = /var/lib/sphinxsearch/data/postgres56
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+index postgres57 {
+    source     = postgressrc57
+    path       = /var/lib/sphinxsearch/data/postgres57
+    docinfo    = extern
+    charset_type = sbcs
+}
+
+
+indexer
+{
+	mem_limit		= 32M
+}
+
+
+searchd
+{
+	listen			= 9311
+	listen			= 9306:mysql41
+	log			    = /var/log/sphinxsearch/searchd.log
+	query_log		= /var/log/sphinxsearch/query.log
+	read_timeout	= 5
+	max_children	= 30
+	pid_file		= /var/run/sphinxsearch/searchd.pid
+	max_matches		= 1000
+	seamless_rotate	= 1
+	preopen_indexes	= 1
+	unlink_old		= 1
+	workers			= threads # for RT to work
+	binlog_path		= /var/lib/sphinxsearch/data
+}
+
